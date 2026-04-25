@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Details about the student's background and career goals",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "gender": { "type": "string", "enum": ["male", "female", "other"] },
+        "collegeName": { "type": "string" },
+        "degree": { "type": "string" },
+        "specialization": { "type": "string" },
+        "year": { "type": "string" },
+        "targetRole": { "type": "string" },
+        "userType": { "type": "string", "enum": ["fresher", "experienced"] },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["fullName", "targetRole"]
+    },
+    "Assessment": {
+      "title": "Skill Assessment",
+      "description": "Results of the role-based assessment quiz",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "role": { "type": "string" },
+        "score": { "type": "number" },
+        "answers": { "type": "array" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "role", "score"]
+    },
+    "Roadmap": {
+      "title": "Learning Roadmap",
+      "description": "AI-generated learning path with milestones",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "targetRole": { "type": "string" },
+        "milestones": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}/profile/main": {
+      "schema": "UserProfile",
+      "description": "Store individual student profile data"
+    },
+    "/users/{userId}/assessments/{assessmentId}": {
+      "schema": "Assessment",
+      "description": "Store results of assessments taken by the user"
+    },
+    "/users/{userId}/roadmaps/{roadmapId}": {
+      "schema": "Roadmap",
+      "description": "Store generated learning roadmaps"
+    }
+  }
+}
